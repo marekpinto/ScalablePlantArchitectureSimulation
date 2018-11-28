@@ -3,7 +3,7 @@
 static void slider_moved (GtkRange *range, gpointer user_data){
   GtkWidget *label = user_data;
   gdouble pos = gtk_range_get_value (range);
-  gchar *str = g_strdup_printf ("Horizontal scale is %.0f", pos);
+  gchar *str = g_strdup_printf ("%.0f", pos);
   gtk_label_set_text(GTK_LABEL (label), str);
   g_free(str);
 }
@@ -11,7 +11,7 @@ static void slider_moved (GtkRange *range, gpointer user_data){
 static void activate (GtkApplication *app, gpointer user_data){
   GtkWidget *window;
   GtkWidget *slider;
-  gtkWidget *label;
+  GtkWidget *label;
   GtkWidget *grid;
   GtkWidget *adjustment;
 
