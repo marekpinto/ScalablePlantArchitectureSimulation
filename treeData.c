@@ -1,42 +1,41 @@
 #include <stdlib.h>
-#include <linmath.h>
+#include "linmath.h"
 
-struct node{
-	int area;
-	int mass;
-	int length;
-	struct node *left;
-	struct node *right;
-	mat4x4 transformation;
-};
+typedef struct Node{
+				int area;
+				int mass;
+				int length;
+				struct Node *left;
+				struct Node *right;
+				mat4x4 transformation;
+} Node;
 
-void newNode(struct node* Node, int area, int mass, int length, mat4x4 transformation){
-	Node->area = area;
-	Node->mass = mass;
-	Node->length = length;
-	Node->left = NULL;
-	Node->right = NULL;
-	mat4x4_dup(Node->transformation,  transformation);	
+void newNode(Node* pNode, Node* pLeftNode, Node* pRightNode, const int area, const int mass, const int length, mat4x4 transformation){
+				pNode->area = area;
+				pNode->mass = mass;
+				pNode->length = length;
+				pNode->left = pLeftNode;
+				pNode->right = pRightNode;
+				mat4x4_dup(pNode->transformation, transformation);	
 }
+
 
 int main(){
-	mat4x4 rootTransformation, transformation1, transformation2, transformation3;
-	newNode(struct node* root, 8, 2, 3, rootTransformation);
-	newNode(root->left, 4, 2, 8, transformation1);
-	newNode(root->right, 6,3 , 3, transformation2);
+				mat4x4 rootTransformation;
+				mat4x4 transformation1;
+				mat4x4 transformation2;
+				mat4x4 transformation3;
+				Node root;
+				Node left;
+				Node right;
+				Node leftRight;
 
-	newNode(root->left->left, 42, 18, 34, transformation3);
+				newNode(&root, &left, &right, 8, 2, 3, rootTransformation);
+				newNode(&left, NULL, &leftRight, 4, 2, 8, transformation1);
+				newNode(&right, NULL, NULL, 6,3 , 3, transformation2);
+
+				//breaking this off into new tree
+				//break off right node
 
 }
 
-void breakOffNode(struct node* Node, int nodeToBreak, struct node* newRoot){
-//if nodeToBreak = 0, delete left child, if 1 delete right child
-	if(nodeToBreak==0){
-		newRoot = Node->left;
-		Node->left = NULL;
-	}
-	else if(nodeToBreak==1){
-		newRoot = Node->right;
-		Node->right = NULL;
-	}
-}
